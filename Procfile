@@ -1,1 +1,1 @@
-web: gunicorn Scrapmart.wsgi --log-file -
+web: gunicorn voterapi.wsgi --log-file -
