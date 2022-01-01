@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            VoterDB Admin
+        </a>
+        <a href="/logout/" class="btn btn-danger"><span><i class="bi bi-box-arrow-left"></i></span> Logout</a>
+    </div>
+</nav>
+
+{% for message in messages %}
+<div class="alert alert-info" role="alert">
+    {{message}}
+</div>
+{% endfor %}
+<div class="row text-center mt-3">
+    <div class="container">
+        <h5>Smart Contract Status: <span class="btn-success">Online</span></h5>
+        <a class="btn btn-dark" href="/smartcontract/"> <span><i class="bi bi-arrow-clockwise"></i></span> Refresh</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="container">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="container w-50 h-50">
+            <canvas id="myChart2"></canvas>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="container text-center">
+        <a href="/signerstatus/" class="btn btn-dark btn-lg">Check Signers Voting Status</a>
+    </div>
+</div>
+
+<footer class="container" style="margin-top: 30px;">
+    <p class="float-end"></p>
+    <p style="text-align: center;">© 2020–2021 Blockchain-Voting</p>
+</footer>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{candidatenames|safe}},
+            datasets: [{
+                label: '# of Votes',
+                data: {{votecounts|safe}},
+                backgroundColor: [
+                '#20bf55',
+                '#01baef',
+                '#a40606',
+                '#380036',
+                '#ec9f05',
+                ],
+                borderColor: [
+                '#20bf55',
+                '#01baef',
+                '#a40606',
+                '#380036',
+                '#ec9f05',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+<script>
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+        const myChart2 = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: {{candidatenames|safe}},
+                datasets: [{
+                    label: '# of Votes',
+                    data: {{votecounts|safe}},
+                    backgroundColor: [
+                    '#20bf55',
+                    '#01baef',
+                    '#a40606',
+                    '#380036',
+                    '#ec9f05',
+                    ],
+                    borderColor: [
+                    '#20bf55',
+                    '#01baef',
+                    '#a40606',
+                    '#380036',
+                    '#ec9f05',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+     
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+</script>
+<script>
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      config
+    );
+</script>
+{% endblock %}

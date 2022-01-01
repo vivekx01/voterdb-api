@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/signerstatus.css' %}">
+{% endblock %}
+{% block content %}
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                VoterDB Admin
+            </a>
+            <a href="/logout/" class="btn btn-danger"><span><i class="bi bi-box-arrow-left"></i></span>Logout</a>
+        </div>
+    </nav>
+    {% for message in messages %}
+    <div class="alert alert-dark alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+
+    <h3 style="text-align: center" class="mt-3">Search VoterDB</h3>
+    <div class="container con mt-3">
+        <div class="container">
+            <form action="/searchdb/" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" placeholder="Enter Voter ID" name="voterid" class="form-control" required>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-warning btn-block">Fetch Information</button>
+                    </div>
+                    <div class="col-md-3">
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% if exist %}
+        <div class="card mt-3">
+            <div class="row">
+                <div class="col-4 mt-4">
+                    <img src="{% static 'img/avatar.png' %}" class="img-fluid rounded" width="250" style="margin-left: 40px;" alt="">
+                </div>
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Voter Information</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Database ID:</td>
+                                <td>{{id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Name :</td>
+                                <td>{{firstname}} {{lastname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Voter ID:</td>
+                                <td>{{voter_id}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number:</td>
+                                <td>{{phone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Voting Status:</td>
+                                <td>{{voting_status}}</td>
+                            </tr>
+                            {% if voting_status %}
+                            <tr>
+                                <td>Metamask Signer Address:</td>
+                                <td>{{voter_address}}</td>
+                            </tr>
+                            <tr>
+                                <td>Transaction Hash:</td>
+                                <td>{{txn_hash}}</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if not_exist %}
+        <h5 style="text-align: center;">Details Not Found!</h5>
+        {% endif %}
+    </div>
+
+    <footer class="container">
+        <p class="float-end"></p>
+        <p style="text-align: center;">© 2020–2021 Blockchain-Voting</p>
+    </footer>
+{% endblock %}

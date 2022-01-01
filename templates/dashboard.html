@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                VoterDB Admin
+            </a>
+            <a href="/logout/" class="btn btn-danger"><span><i class="bi bi-box-arrow-left"></i></span> Logout</a>
+        </div>
+    </nav>
+
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+
+
+    <div class="card text-center">
+        <div class="card-body">
+            <h1 class="card bg-danger text-white">VoterDB Administration</h1>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Manage VoterDB API</h5>
+                            <img src="{% static 'img/api.png' %}" class="img-fluid" style="height: 150px;width:150px;">
+                            <p class="card-text">View Voter Information Database</p>
+                            <a href="/searchvoterdb/" class="btn btn-dark btn-lg">Search VoterDB</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Manage Smart Contract</h5>
+                            <img src="{% static 'img/smartc.png' %}" class="img-fluid" style="height: 150px;width:150px;">
+                            <p class="card-text">View Smart Contract Data</p>
+                            <a href="/smartcontract/" class="btn btn-dark btn-lg">Manage Contract</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container" style="margin-top: 80px;">
+        <p class="float-end"></p>
+        <p style="text-align: center;">© 2020–2021 Blockchain-Voting</p>
+    </footer>
+{% endblock %}
